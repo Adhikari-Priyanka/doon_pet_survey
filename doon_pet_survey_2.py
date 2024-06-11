@@ -134,5 +134,19 @@ dog_result = col_combin(dogs)
 cat_result.to_csv('cat_combine.csv', sep=',')
 dog_result.to_csv('dog_combine.csv', sep=',')
 
+# Remove NA values
+cat_result_nona = cat_result.dropna(subset=['cat_age'])
+print('length of cleaned df ',len(cat_result_nona))
+print('length of non na values in cat_age' , 
+      len(cat_result[~cat_result['cat_age'].isnull()]))
+
+dog_result_nona = dog_result.dropna(subset=['dog_age'])
+print('length of cleaned df ',len(dog_result_nona))
+print('length of non na values in dog_age' , 
+      len(dog_result[~dog_result['dog_age'].isnull()]))
+
+# Export combined dataframe as csv
+cat_result_nona.to_csv('cat_combine_nona.csv', sep=',')
+dog_result_nona.to_csv('dog_combine_nona.csv', sep=',')
 
 
