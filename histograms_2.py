@@ -29,7 +29,8 @@ def histo(df, var, order_dict):
                        title=f"Distribution of {var_tit}", # Graph title
                        color= var, # Differently colored bars based on column var
                        color_discrete_sequence= col_scale, # Define color for bars
-                       category_orders= { var : order_dict[var]} # Define required order of categories
+                       category_orders= { var : order_dict[var]}, # Define required order of categories
+                       text_auto=True
                        )
     fig.update_yaxes(title = 'Count') # Y-axis title
     fig.update_xaxes(title = var_tit) # X-axis title
