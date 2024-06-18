@@ -1,4 +1,4 @@
-,row_ids,dog_age,dog_sex,dog_neutered,dog_hunt_yn,dog_hunt,dog_hunt_freq
+,row_ids,dog_age,dog_sex,dog_neutered,dog_hunt,dog_hunt,dog_hunt_freq
 0,aditi_5,3-5 years,Male,Neutered,No,,
 1,aditi_6,1-3 years,Male,Neutered,No,,
 2,aditi_7,1-3 years,Male,Not neutered,No,,

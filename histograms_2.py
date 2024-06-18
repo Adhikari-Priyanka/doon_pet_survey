@@ -53,7 +53,7 @@ cat_order_dict = {
     'cat_feed_freq' : ['Continuous supply of food is available', 'Thrice a day', 'Twice a day', 'Once a day'],
     'cat_time_out': ['1-3 hours', '3-5 hours', '5-7 hours', '7- 10 hours', '>10 hours', 'Completely indoors',"I don't know"],
     'cat_stay' : ['At home', 'Outside', 'Either at home or outside'],
-    'cat_hunt': ['Yes', 'No', 'Have not observed'],
+    'cat_hunt_yn': ['Yes', 'No', 'Have not observed'],
     'cat_hunt_freq': ['Once every few months', 'Once a month', 'Once in 15 days', 'Once a week', 'Every day'],
     'cat_time': ['None at all', '10-20 minutes', '20-40 minutes','40 minutes-1 hour','1-2 hours','2-4 hours','>4 hours']
     }
@@ -73,7 +73,7 @@ dog_order_dict = {
     'dog_age' : ['0-3 months', '3 months - 1 year','1-3 years','3-5 years','5-8 years','8 - 12 years','12 years and older'],
     'dog_sex' : ['Female', 'Male'],
     'dog_neutered' : ['Neutered', 'Not neutered'],
-    'dog_hunt' : ['Yes', 'No', 'Have not observed'],
+    'dog_hunt_yn' : ['Yes', 'No', 'Have not observed'],
     'dog_hunt_freq' : ['Once every few months','Once a month','Once in 15 days','Once a week','Everyday']
 }
 
