@@ -23,7 +23,7 @@ def histo_multi(df, var):
     # Title for graph
     var_tit = var.replace('_',' ')
     
-    # remove multiple entries in one line
+    # Remove multiple entries in one line
     var_fix = df[var].str.split(';').explode().reset_index(drop=True) 
     # Remove NA values
     var_fix1 = var_fix.dropna()
@@ -52,3 +52,4 @@ def histo_multi(df, var):
 histo_multi(cat, 'cat_hunt')
 histo_multi(cat,'cat_feed')
 histo_multi(dog,'dog_hunt')
+
