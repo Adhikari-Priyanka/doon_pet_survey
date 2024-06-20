@@ -1,0 +1,24 @@
+Result for dog_hunt_yn and dog_neutered: 
+accept h0, there is no  relationship Chi square value = 5.561504619531276 and Critical value = 5.991464547107979 accept h0, there is no relationship as P value = 0.06199185275397756
+
+
+Result for dog_hunt_yn and dog_sex: 
+accept h0, there is no  relationship Chi square value = 1.9498775219069104 and Critical value = 5.991464547107979 accept h0, there is no relationship as P value = 0.37721545317054506
+
+
+Result for dog_hunt_yn and dog_age: 
+reject h0, there is a relationship Chi square value = 27.483046469243114 and Critical value = 21.02606981748307 reject h0, there is a relationship as P value = 0.006579683425569582
+
+
+Result for dog_hunt_freq and dog_neutered: 
+accept h0, there is no  relationship Chi square value = 3.3484848484848486 and Critical value = 9.487729036781154 accept h0, there is no relationship as P value = 0.5012870991188569
+
+
+Result for dog_hunt_freq and dog_sex: 
+accept h0, there is no  relationship Chi square value = 3.5789473684210535 and Critical value = 9.487729036781154 accept h0, there is no relationship as P value = 0.46597618569326715
+
+
+Result for dog_hunt_freq and dog_age: 
+accept h0, there is no  relationship Chi square value = 16.528061224489797 and Critical value = 36.41502850180731 accept h0, there is no relationship as P value = 0.8680803116071704
+
+

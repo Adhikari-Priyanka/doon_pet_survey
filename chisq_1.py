@@ -11,7 +11,7 @@ cat_dep_var = ['cat_hunt_yn', 'cat_hunt_freq'] # Add cat_hunt later
 cat_indep_var = ['cat_sex','cat_neutered','cat_describe',
              'cat_age','cat_time',
              'cat_time_out','cat_stay',
-             'cat_feed','cat_feed_freq'] # Add cat_feed later
+             'cat_feed_freq'] # Add cat_feed later
 
 dog = pd.read_csv("F:\\github\\doon_pet_survey\\dog_combine.csv")
 dog_dep_var = ['dog_hunt_yn','dog_hunt_freq'] # Add dog_hunt later
@@ -25,7 +25,6 @@ def run_chi2(df, s1, s2, alpha=0.05):
     # s1 and s2 are the column names to use
     # alpha is required value either 0.05 or 0.01
     
-
     c_tab = pd.crosstab(df[s1], df[s2]) # Create contingency table
     obs = c_tab.values # Observed values
     vals = stats.chi2_contingency(c_tab) # Run Chi2 test of independence of variables

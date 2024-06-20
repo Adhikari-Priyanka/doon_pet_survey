@@ -31,7 +31,7 @@ df4 = df3.loc[df3["consent"] == 'Yes']
 print('No of responses with consent is', len(df4))
 
 ## filter by column 'have_pets' != 'No'
-df5 = df4.loc[df4["have_pets"] != 'No']
+df5 = df4.loc[df4["have_pets"] == 'Yes']
 print('No of responses with pets is',len(df5))
 
 # # Remove unused variables

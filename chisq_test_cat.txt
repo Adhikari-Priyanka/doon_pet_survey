@@ -1,0 +1,64 @@
+Result for cat_hunt_yn and cat_sex: 
+accept h0, there is no  relationship Chi square value = 0.12028586665694832 and Critical value = 5.991464547107979 accept h0, there is no relationship as P value = 0.941629933664461
+
+
+Result for cat_hunt_yn and cat_neutered: 
+accept h0, there is no  relationship Chi square value = 0.5486860965121837 and Critical value = 5.991464547107979 accept h0, there is no relationship as P value = 0.7600712894020376
+
+
+Result for cat_hunt_yn and cat_describe: 
+reject h0, there is a relationship Chi square value = 20.34013679890561 and Critical value = 5.991464547107979 reject h0, there is a relationship as P value = 3.829970364821467e-05
+
+
+Result for cat_hunt_yn and cat_age: 
+reject h0, there is a relationship Chi square value = 16.641423334818178 and Critical value = 15.507313055865453 reject h0, there is a relationship as P value = 0.03406719789567636
+
+
+Result for cat_hunt_yn and cat_time: 
+reject h0, there is a relationship Chi square value = 47.38771989558507 and Critical value = 21.02606981748307 reject h0, there is a relationship as P value = 3.993338892116505e-06
+
+
+Result for cat_hunt_yn and cat_time_out: 
+accept h0, there is no  relationship Chi square value = 15.602090459353448 and Critical value = 21.02606981748307 accept h0, there is no relationship as P value = 0.2101480847149243
+
+
+Result for cat_hunt_yn and cat_stay: 
+accept h0, there is no  relationship Chi square value = 5.647464400506747 and Critical value = 9.487729036781154 accept h0, there is no relationship as P value = 0.22706811536359084
+
+
+Result for cat_hunt_yn and cat_feed_freq: 
+accept h0, there is no  relationship Chi square value = 10.792886828644502 and Critical value = 12.591587243743977 accept h0, there is no relationship as P value = 0.09499233796336781
+
+
+Result for cat_hunt_freq and cat_sex: 
+accept h0, there is no  relationship Chi square value = 1.179434610252097 and Critical value = 9.487729036781154 accept h0, there is no relationship as P value = 0.8814728298777691
+
+
+Result for cat_hunt_freq and cat_neutered: 
+accept h0, there is no  relationship Chi square value = 9.174718151413803 and Critical value = 9.487729036781154 accept h0, there is no relationship as P value = 0.05687767684367462
+
+
+Result for cat_hunt_freq and cat_describe: 
+reject h0, there is a relationship Chi square value = 10.189589728453365 and Critical value = 9.487729036781154 reject h0, there is a relationship as P value = 0.03735233852462061
+
+
+Result for cat_hunt_freq and cat_age: 
+accept h0, there is no  relationship Chi square value = 16.811395995007818 and Critical value = 21.02606981748307 accept h0, there is no relationship as P value = 0.15683075422515746
+
+
+Result for cat_hunt_freq and cat_time: 
+accept h0, there is no  relationship Chi square value = 29.97436581534408 and Critical value = 36.41502850180731 accept h0, there is no relationship as P value = 0.1856028630445612
+
+
+Result for cat_hunt_freq and cat_time_out: 
+accept h0, there is no  relationship Chi square value = 31.33740008783487 and Critical value = 36.41502850180731 accept h0, there is no relationship as P value = 0.14429065081338655
+
+
+Result for cat_hunt_freq and cat_stay: 
+accept h0, there is no  relationship Chi square value = 3.0153389798607195 and Critical value = 15.507313055865453 accept h0, there is no relationship as P value = 0.9333912542861158
+
+
+Result for cat_hunt_freq and cat_feed_freq: 
+accept h0, there is no  relationship Chi square value = 18.19012104409702 and Critical value = 21.02606981748307 accept h0, there is no relationship as P value = 0.110038556151828
+
+

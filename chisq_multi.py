@@ -96,10 +96,48 @@ with open(filename_dog,'w') as f:
         #f.write(f'Result for dog_hunt and {iv}: \n{res}\n\n')
 
 
-
 # Chi2 test of cat_hunt (multiple option dependent variable) vs cat_feed (multiple option independent variable)
 
+# Load csv file
+cat = pd.read_csv("F:\\github\\doon_pet_survey\\cat_combine.csv")
+df = cat[['cat_hunt','cat_feed']]
+df['cat_hunt_fix'] = df['cat_hunt'].str.split(';')
+df2 = df.explode('cat_hunt_fix').reset_index(drop=True)
+df3 = df2[df2['cat_hunt_fix']!='']
 
+df3['cat_feed_fix'] = df3['cat_feed'].str.split(';')
+df4 = df3.explode('cat_feed_fix').reset_index(drop=True)
+df5 = df4[df4['cat_feed_fix']!='']
+df5 = df5.dropna()
 
+df5['cat_feed_fix'] = df5['cat_feed_fix'].str.split('(').str.get(0).str.strip()
+df5['cat_hunt_fix'] = df5['cat_hunt_fix'].str.split('(').str.get(0).str.strip()
 
+alpha = 0.05
+c_tab = pd.crosstab(df5['cat_feed_fix'],df5['cat_hunt_fix']) # Create contingency table
+obs = c_tab.values # Observed values
+vals = stats.chi2_contingency(c_tab) # Run Chi2 test of independence of variables
+exp = vals[3] # Expected values
 
+norow = len(c_tab) # No of rows in c_tab
+nocol = len(c_tab.columns) # No of cols in c_tab
+dof = (norow-1) * (nocol-1) # Degree of freedom
+
+chi_sq = sum([(o-e)**2/e for o,e in zip(obs,exp)]).sum() # Find chi2 value
+crit = chi2.ppf(q = 1-alpha, df=dof) # Find critical value using alpha and degree of freedom
+    
+pval = 1-chi2.cdf(x=chi_sq, df =dof) # Find P value
+
+if chi_sq >= crit:
+    chi_sq_result = 'reject h0, there is a relationship'
+else:
+    chi_sq_result = 'accept h0, there is no  relationship'
+if pval <= alpha:
+    pval_result = 'reject h0, there is a relationship'
+else:
+    pval_result = 'accept h0, there is no relationship'
+
+with open(filename_cat, 'a') as f:
+    # Return results and variables as string 
+    f.write('Result for cat_hunt and cat_feed: \n')
+    f.write(f'{chi_sq_result} Chi square value = {chi_sq} and Critical value = {crit} {pval_result} as P value = {pval}\n')
