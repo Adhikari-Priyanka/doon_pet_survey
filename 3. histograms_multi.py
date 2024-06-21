@@ -49,6 +49,7 @@ def histo_multi(df, var):
     # Display success message
     print('Prepared histogram for ', var)
 
+# Create histograms
 histo_multi(cat, 'cat_hunt')
 histo_multi(cat,'cat_feed')
 histo_multi(dog,'dog_hunt')

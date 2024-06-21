@@ -8,7 +8,7 @@ import os
 cat = pd.read_csv("F:\\github\\doon_pet_survey\\cat_combine.csv")
 dog = pd.read_csv("F:\\github\\doon_pet_survey\\dog_combine.csv")
 
-# Define independent variables
+# Define independent variables (single option columns ONLY)
 cat_indep_var = ['cat_sex','cat_neutered','cat_describe',
              'cat_age','cat_time',
              'cat_time_out','cat_stay',
@@ -16,13 +16,13 @@ cat_indep_var = ['cat_sex','cat_neutered','cat_describe',
 dog_indep_var = ['dog_neutered', 'dog_sex', 'dog_age']
 
 
-# Define a function that runs chisq for two pandas series after taking care of multi options
+# Define a function that runs chisq for two pandas series: single option column and one multi option column
 
 def run_chi2_multi(df, s1, multi, alpha=0.05):
     # df is the dataframe to use
     # s1 is the independent variable column names to use
     # multi is the dependent variable column with multiple options
-    # alpha is required value either 0.05 or 0.01
+    # alpha is required value either 0.05 or 0.01, default value =0.05
         
     # Select only required columns from the dataframe
     df1 = df[[s1,multi]]
@@ -72,7 +72,8 @@ if not os.path.isfile(filename_cat):
 else:
     print(f"'{filename_cat}' already exists.")
 
-with open(filename_cat,'w') as f:
+with open(filename_cat,'w') as f: # Open file
+    # Run chi2 test for each combination of cat_hunt and independent variables as defined
     for iv in cat_indep_var:
         res = run_chi2_multi(df= cat, s1=iv, multi='cat_hunt', alpha = 0.05) # Define alpha
         f.write(f'Result for cat_hunt and {iv}: \n{res}\n\n')
@@ -89,7 +90,8 @@ if not os.path.isfile(filename_dog):
 else:
     print(f"'{filename_dog}' already exists.")
 
-with open(filename_dog,'w') as f:
+with open(filename_dog,'w') as f:# Open file
+    # Run chi2 test for each combination of dog_hunt and independent variables as defined
     f.write('work in progress. have to clean dog_hunt in the MASTERSHEET first')
     #for iv in dog_indep_var:
         #res = run_chi2_multi(df= dog, s1=iv, multi='dog_hunt', alpha = 0.05) # Define alpha
@@ -98,22 +100,29 @@ with open(filename_dog,'w') as f:
 
 # Chi2 test of cat_hunt (multiple option dependent variable) vs cat_feed (multiple option independent variable)
 
-# Load csv file
-cat = pd.read_csv("F:\\github\\doon_pet_survey\\cat_combine.csv")
+# Create new dataframe with only 'cat_hunt' and 'cat_feed'
 df = cat[['cat_hunt','cat_feed']]
+## 'cat_hunt'
+### Remove multiple entries in one line
 df['cat_hunt_fix'] = df['cat_hunt'].str.split(';')
 df2 = df.explode('cat_hunt_fix').reset_index(drop=True)
+### Remove blank values
 df3 = df2[df2['cat_hunt_fix']!='']
 
+## 'cat_feed'
+### Remove multiple entries in one line
 df3['cat_feed_fix'] = df3['cat_feed'].str.split(';')
 df4 = df3.explode('cat_feed_fix').reset_index(drop=True)
+### Remove blank values
 df5 = df4[df4['cat_feed_fix']!='']
-df5 = df5.dropna()
 
+## Remove NA values
+df5 = df5.dropna()
+## Remove string inside brackets '(.......)'
 df5['cat_feed_fix'] = df5['cat_feed_fix'].str.split('(').str.get(0).str.strip()
 df5['cat_hunt_fix'] = df5['cat_hunt_fix'].str.split('(').str.get(0).str.strip()
 
-alpha = 0.05
+alpha = 0.05 # Define alpha
 c_tab = pd.crosstab(df5['cat_feed_fix'],df5['cat_hunt_fix']) # Create contingency table
 obs = c_tab.values # Observed values
 vals = stats.chi2_contingency(c_tab) # Run Chi2 test of independence of variables
@@ -137,7 +146,7 @@ if pval <= alpha:
 else:
     pval_result = 'accept h0, there is no relationship'
 
-with open(filename_cat, 'a') as f:
+with open(filename_cat, 'a') as f: # Open previous file and append
     # Return results and variables as string 
     f.write('Result for cat_hunt and cat_feed: \n')
     f.write(f'{chi_sq_result} Chi square value = {chi_sq} and Critical value = {crit} {pval_result} as P value = {pval}\n')

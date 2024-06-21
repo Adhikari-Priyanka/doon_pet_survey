@@ -6,15 +6,15 @@ import os
 
 # Load csv file
 cat = pd.read_csv("F:\\github\\doon_pet_survey\\cat_combine.csv")
-# Define independent and dependent variables
-cat_dep_var = ['cat_hunt_yn', 'cat_hunt_freq'] # Add cat_hunt later
+# Define independent and dependent variables (single option columns ONLY)
+cat_dep_var = ['cat_hunt_yn', 'cat_hunt_freq']
 cat_indep_var = ['cat_sex','cat_neutered','cat_describe',
              'cat_age','cat_time',
              'cat_time_out','cat_stay',
-             'cat_feed_freq'] # Add cat_feed later
+             'cat_feed_freq']
 
 dog = pd.read_csv("F:\\github\\doon_pet_survey\\dog_combine.csv")
-dog_dep_var = ['dog_hunt_yn','dog_hunt_freq'] # Add dog_hunt later
+dog_dep_var = ['dog_hunt_yn','dog_hunt_freq']
 dog_indep_var = ['dog_neutered', 'dog_sex', 'dog_age']
 
 
@@ -23,7 +23,7 @@ dog_indep_var = ['dog_neutered', 'dog_sex', 'dog_age']
 def run_chi2(df, s1, s2, alpha=0.05):
     # df is the dataframe to use
     # s1 and s2 are the column names to use
-    # alpha is required value either 0.05 or 0.01
+    # alpha is required value either 0.05 or 0.01, default 0.05
     
     c_tab = pd.crosstab(df[s1], df[s2]) # Create contingency table
     obs = c_tab.values # Observed values
@@ -65,7 +65,8 @@ if not os.path.isfile(filename_cat):
 else:
     print(f"'{filename_cat}' already exists.")
 
-with open(filename_cat,'w') as f:
+with open(filename_cat,'w') as f: # Open the file
+    # Run chi2 test for each combination of dependent and independent variables as defined
     for dv in cat_dep_var:
         for iv in cat_indep_var:
             res = run_chi2(df= cat, s1=dv, s2=iv, alpha = 0.05) # Define alpha
@@ -81,11 +82,33 @@ if not os.path.isfile(filename_dog):
 else:
     print(f"'{filename_dog}' already exists.")
 
-with open(filename_dog,'w') as f:
+with open(filename_dog,'w') as f:# Open the file
+    # Run chi2 test for each combination of dependent and independent variables as defined
     for dv in dog_dep_var:
         for iv in dog_indep_var:
             res = run_chi2(df= dog, s1=dv, s2=iv, alpha = 0.05) # Define alpha
             f.write(f'Result for {dv} and {iv}: \n{res}\n\n')
+
+# Save contingency table as text file
+
+filename = 'contingency tables.txt'
+if not os.path.isfile(filename):
+    # If the file does not exist, create it
+    with open(filename, 'w') as file:
+        file.write('')  # Create an empty file
+    print(f"'{filename}' has been created.")
+else:
+    print(f"'{filename}' already exists.")
+
+with open(filename,'w') as f: # Open the file
+    for dv in cat_dep_var:
+        for iv in cat_indep_var:
+            res = pd.crosstab(cat[dv],cat[iv]) 
+            f.write(f'CAT Contingency table for {dv} and {iv}: \n{res}\n\n')
+    for dv in dog_dep_var:
+        for iv in dog_indep_var:
+            res = pd.crosstab(dog[dv],dog[iv])
+            f.write(f'DOG Contingency table for {dv} and {iv}: \n{res}\n\n')
 
 
 
