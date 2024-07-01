@@ -4,6 +4,9 @@ import scipy.stats as stats
 from scipy.stats import chi2
 import os
 
+## Change file path as needed!!!!
+wd = 'F:\\github\\doon_pet_survey_graphs\\chi2_tests\\'
+
 # Load csv file
 cat = pd.read_csv("F:\\github\\doon_pet_survey\\cat_combine.csv")
 dog = pd.read_csv("F:\\github\\doon_pet_survey\\dog_combine.csv")
@@ -63,7 +66,7 @@ def run_chi2_multi(df, s1, multi, alpha=0.05):
 
 # Chi2 test of cat_hunt (multiple option dependent variable) vs all cat independent variables
 
-filename_cat = 'chisq_test_cat_hunt.txt' # Name of txt file to store results
+filename_cat = f'{wd}chisq_test_cat_hunt.txt' # Name of txt file to store results
 if not os.path.isfile(filename_cat):
     # If the file does not exist, create it
     with open(filename_cat, 'w') as file:
@@ -81,7 +84,7 @@ with open(filename_cat,'w') as f: # Open file
 
 # Chi2 test of cat_hunt (multiple option dependent variable) vs all cat independent variables
 
-filename_dog = 'chisq_test_dog_hunt.txt' # Name of txt file to store results
+filename_dog = f'{wd}chisq_test_dog_hunt.txt' # Name of txt file to store results
 if not os.path.isfile(filename_dog):
     # If the file does not exist, create it
     with open(filename_dog, 'w') as file:

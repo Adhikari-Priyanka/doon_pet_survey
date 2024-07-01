@@ -4,6 +4,9 @@ import plotly.express as px
 import kaleido
 import plotly.io as pio
 
+## Change file path as needed!!!!
+wd = 'F:\\github\\doon_pet_survey_graphs\\histograms\\multi\\'
+
 # Load csv files for cat and dog
 cat = pd.read_csv("F:\\github\\doon_pet_survey\\cat_combine.csv")
 dog = pd.read_csv("F:\\github\\doon_pet_survey\\dog_combine.csv")
@@ -44,7 +47,7 @@ def histo_multi(df, var):
     fig. update_layout(showlegend=False) # Remove legend
     
     # Save figure as png
-    pio.write_image(fig, f'hist_{var}.png', engine="kaleido")
+    pio.write_image(fig, f'{wd}hist_{var}.png', engine="kaleido")
     
     # Display success message
     print('Prepared histogram for ', var)

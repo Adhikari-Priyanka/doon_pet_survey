@@ -4,6 +4,9 @@ import scipy.stats as stats
 from scipy.stats import chi2
 import os
 
+## Change file path as needed!!!!
+wd = 'F:\\github\\doon_pet_survey_graphs\\chi2_tests\\'
+
 # Load csv file
 cat = pd.read_csv("F:\\github\\doon_pet_survey\\cat_combine.csv")
 # Define independent and dependent variables (single option columns ONLY)
@@ -56,7 +59,7 @@ def run_chi2(df, s1, s2, alpha=0.05):
 # And save as a text file
 
 ## For cats
-filename_cat = 'chisq_test_cat.txt' # Name of txt file to store results
+filename_cat = f'{wd}chisq_test_cat.txt' # Name of txt file to store results
 if not os.path.isfile(filename_cat):
     # If the file does not exist, create it
     with open(filename_cat, 'w') as file:
@@ -73,7 +76,7 @@ with open(filename_cat,'w') as f: # Open the file
             f.write(f'Result for {dv} and {iv}: \n{res}\n\n')
 
 ## For dogs
-filename_dog = 'chisq_test_dog.txt' # Name of txt file to store results
+filename_dog = f'{wd}chisq_test_dog.txt' # Name of txt file to store results
 if not os.path.isfile(filename_dog):
     # If the file does not exist, create it
     with open(filename_dog, 'w') as file:
@@ -91,7 +94,7 @@ with open(filename_dog,'w') as f:# Open the file
 
 # Save contingency table as text file
 
-filename = 'contingency tables.txt'
+filename = f'{wd}contingency tables.txt'
 if not os.path.isfile(filename):
     # If the file does not exist, create it
     with open(filename, 'w') as file:

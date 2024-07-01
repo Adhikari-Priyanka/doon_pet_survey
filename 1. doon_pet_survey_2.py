@@ -1,9 +1,11 @@
 import pandas as pd
 import numpy as np
 
+## Change file path as needed!!!!
+wd = 'F:\\github\\doon_pet_survey_graphs\\'
 
 # Load MASTERSHEET
-df1 = pd.read_csv("F:\\github\\doon_pet_survey\\MASTERSHEET.csv")
+df1 = pd.read_csv(f'{wd}MASTERSHEET.csv')
 print('No of responses is ', len(df1))
 
 # Remove columns not required for further analysis
@@ -131,6 +133,6 @@ print('Running function to combine dogs dataframe')
 dog_result = col_combin(dogs)
 
 # Export combined dataframe as csv
-cat_result.to_csv('cat_combine.csv', sep=',')
-dog_result.to_csv('dog_combine.csv', sep=',')
+cat_result.to_csv(f'{wd}cat_combine.csv', sep=',')
+dog_result.to_csv(f'{wd}dog_combine.csv', sep=',')
 
