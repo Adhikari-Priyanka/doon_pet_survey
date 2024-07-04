@@ -8,8 +8,8 @@ import os
 wd = 'F:\\github\\doon_pet_survey_graphs\\chi2_tests\\'
 
 # Load csv file
-cat = pd.read_csv("F:\\github\\doon_pet_survey\\cat_combine.csv")
-dog = pd.read_csv("F:\\github\\doon_pet_survey\\dog_combine.csv")
+cat = pd.read_csv("F:\\github\\doon_pet_survey_graphs\\cat_combine.csv")
+dog = pd.read_csv("F:\\github\\doon_pet_survey_graphs\\dog_combine.csv")
 
 # Define independent variables (single option columns ONLY)
 cat_indep_var = ['cat_sex','cat_neutered','cat_describe',

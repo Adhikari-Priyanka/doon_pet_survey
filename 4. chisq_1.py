@@ -8,7 +8,9 @@ import os
 wd = 'F:\\github\\doon_pet_survey_graphs\\chi2_tests\\'
 
 # Load csv file
-cat = pd.read_csv("F:\\github\\doon_pet_survey\\cat_combine.csv")
+cat = pd.read_csv("F:\\github\\doon_pet_survey_graphs\\cat_combine.csv")
+dog = pd.read_csv("F:\\github\\doon_pet_survey_graphs\\dog_combine.csv")
+
 # Define independent and dependent variables (single option columns ONLY)
 cat_dep_var = ['cat_hunt_yn', 'cat_hunt_freq']
 cat_indep_var = ['cat_sex','cat_neutered','cat_describe',
@@ -16,7 +18,6 @@ cat_indep_var = ['cat_sex','cat_neutered','cat_describe',
              'cat_time_out','cat_stay',
              'cat_feed_freq']
 
-dog = pd.read_csv("F:\\github\\doon_pet_survey\\dog_combine.csv")
 dog_dep_var = ['dog_hunt_yn','dog_hunt_freq']
 dog_indep_var = ['dog_neutered', 'dog_sex', 'dog_age']
 
