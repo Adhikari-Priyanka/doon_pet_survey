@@ -7,6 +7,8 @@ import plotly.io as pio
 
 ## Change file path as needed!!!!
 wd = 'F:\\github\\doon_pet_survey_graphs\\'
+## Change col_scale for histograms
+col_scale = ['#999999']
 
 # Load MASTERSHEET
 df1 = pd.read_csv(f'{wd}MASTERSHEET.csv')
@@ -263,9 +265,7 @@ def histo(df, var, order_dict):
     # df is the dataframe to use - cat or dog
     # var is the column name to make histogram for
     # order_dict is a dictionary containing correct order for all categorical values
-    
-    col_scale = ['#999999']
-    
+      
     # Title for graph
     var_tit = var.replace('_',' ')
     
@@ -281,7 +281,6 @@ def histo(df, var, order_dict):
                        category_orders= { var : order_dict[var]}, # Define required order of categories
                        text_auto=True ## dimension
                        )
-    #fig.update_yaxes(title = 'Count',nticks=10,gridcolor='Pink', showline=True, zeroline=True, zerolinewidth=1.5) 
     fig.update_yaxes(title = 'Count', # Y-axis title
                     showline=True, linewidth=1, linecolor='Black', 
                     gridcolor='Grey', gridwidth=0.75,
@@ -335,8 +334,6 @@ dog_hunt= dog['dog_hunt']
 def histo_multi(df, var):
     # var is the column name to make histogram for
     # order_dict is a dictionary containing correct order for all categorical values
-    
-    col_scale = ['#999999']
     
     # Title for graph
     var_tit = var.replace('_',' ')
