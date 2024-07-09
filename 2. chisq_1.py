@@ -349,7 +349,7 @@ def histo_stack(df, x_var, col_var):
                    title = f'Plot {x_var} and {col_var}', # Graph title
                    #color_discrete_sequence= col_scale,
                    #pattern_shape=col_var,
-                   #category_orders= { x_var : cat_order_dict[x_var]}, # Define required order of categories
+                   category_orders= { x_var : cat_order_dict[x_var]}, # Define required order of categories
                     text_auto=True ## dimension                   
                    )
     fig.update_yaxes(title = 'Count', # Y-axis title
