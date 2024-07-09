@@ -5,11 +5,11 @@ from scipy.stats import chi2
 import os
 
 ## Change file path as needed!!!!
-wd = 'F:\\github\\doon_pet_survey_graphs\\chi2_tests\\'
+wd = 'F:\\github\\doon_pet_survey_graphs\\'
 
-# Load csv file
-cat = pd.read_csv("F:\\github\\doon_pet_survey_graphs\\cat_combine.csv")
-dog = pd.read_csv("F:\\github\\doon_pet_survey_graphs\\dog_combine.csv")
+## Load csv files for cat and dog
+cat = pd.read_csv(f'{wd}cat_combine.csv')
+dog = pd.read_csv(f'{wd}dog_combine.csv')
 
 # Define independent and dependent variables (single option columns ONLY)
 cat_dep_var = ['cat_hunt_yn', 'cat_hunt_freq']

@@ -45,7 +45,7 @@ del (df1,df2, df3, df4)
 
 #########################################################################
 
-# 2. Create pet dataframes
+# 2.1 Create pet dataframes
 
 ## Remove 'consent' and 'have_pets' columns
 col_drop1 = ['consent', 'have_pets']
@@ -125,18 +125,42 @@ def col_combin(df):
     # Return combined dataframe
     return pet_combin
 
-# Run the function for cats and dogs
+## Run the function for cats and dogs
 print('Running function to combine cats dataframe')
 cat_result = col_combin(cats)
 
 print('Running function to combine dogs dataframe')
 dog_result = col_combin(dogs)
 
-# Export combined dataframe as csv
+# 2.2 Fix cat_hunt_yn and dog_hunt_yn columns for individual pet
+
+## Create new column with 'No' as default
+cat_result['cat_hunt_yn_fix']='No'
+## Fill 'Yes' if there is information in 'cat_hunt_freq' and 'cat_hunt'
+cat_result['cat_hunt_yn_fix'] = np.where(
+    (cat_result['cat_hunt_freq'].notna() | cat_result['cat_hunt'].notna()),
+    'Yes', cat_result['cat_hunt_yn_fix'])
+## Fill NA if there is no other information about the cat ie- this row is a repeat made due to col_combin
+cat_result['cat_hunt_yn_fix'] = np.where(
+    (cat_result['cat_age'].isna() & cat_result['cat_sex'].isna()),
+    np.nan, cat_result['cat_hunt_yn_fix'])
+
+## Create new column with 'No' as default
+dog_result['dog_hunt_yn_fix']='No'
+## Fill 'Yes' if there is information in 'cat_hunt_freq' and 'cat_hunt'
+dog_result['dog_hunt_yn_fix'] = np.where(
+    (dog_result['dog_hunt_freq'].notna() | dog_result['dog_hunt'].notna()),
+    'Yes', dog_result['dog_hunt_yn_fix'])
+## Fill NA if there is no other information about the cat ie- this row is a repeat made due to col_combin
+dog_result['dog_hunt_yn_fix'] = np.where(
+    (dog_result['dog_age'].isna() & dog_result['dog_sex'].isna()),
+    np.nan, dog_result['dog_hunt_yn_fix'])
+
+## Export combined dataframe as csv
 cat_result.to_csv(f'{wd}cat_combine.csv', sep=',')
 dog_result.to_csv(f'{wd}dog_combine.csv', sep=',')
 
-# Remove unused variables
+## Remove unused variables
 del(cat_result,dog_result, cats, dogs)
 
 #########################################################################
@@ -149,23 +173,25 @@ dog = pd.read_csv(f'{wd}dog_combine.csv')
 
 ## Define a dictionary with customized order of values in columns
 cat_order_dict = {
-    'cat_age':['Kitten (0-6 months)','Junior (7 months - 2 years)', 'Adult (3-6 years)','Mature (7-10 years)', 'Senior (11-14 years)'],
+    'cat_age':['Kitten (0-6 months)','Junior (7 months - 2 years)', 'Adult (3-6 years)','Mature (>7 years)'],
     'cat_sex' : ['Female', 'Male'] ,
     'cat_neutered' : ['Neutered', 'Not neutered'],
     'cat_describe' : ["Indoor-outdoor cat (the cat wanders outside on its own, but you feed it and look after it when it is sick)",'Completely indoor cat (always stays at home and does not go out on its own'],
-    'cat_feed_freq' : ['Continuous supply of food is available', 'Thrice a day', 'Twice a day', 'Once a day'],
-    'cat_time_out': ['1-3 hours', '3-5 hours', '5-7 hours', '7- 10 hours', '>10 hours', 'Completely indoors',"I don't know"],
+    'cat_feed_freq' : ['Once a day', 'Twice a day', 'Thrice a day', 'Continuous supply of food is available' ],
+    'cat_time_out': ['Completely indoors', '1-3 hours', '3-5 hours', '5-7 hours', '>7 hours'],
     'cat_stay' : ['At home', 'Outside', 'Either at home or outside'],
-    'cat_hunt_yn': ['Yes', 'No', 'Have not observed'],
-    'cat_hunt_freq': ['Once every few months', 'Once a month', 'Once in 15 days', 'Once a week', 'Every day'], ## opposite
-    'cat_time': ['None at all', '10-20 minutes', '20-40 minutes','40 minutes-1 hour','1-2 hours','2-4 hours','>4 hours']
+    'cat_hunt_yn': ['Yes', 'No'],
+    'cat_hunt_yn_fix': ['Yes', 'No'],
+    'cat_hunt_freq': ['Once a week', 'Once in 15 days', 'Once a month','Once every few months'], 
+    'cat_time': ['<20 minutes', '20 minutes-1hour','1-2 hours','2-4 hours','>4 hours']
     }
 dog_order_dict = {
     'dog_age' : ['0-3 months', '3 months - 1 year','1-3 years','3-5 years','5-8 years','8 - 12 years','12 years and older'],
     'dog_sex' : ['Female', 'Male'],
     'dog_neutered' : ['Neutered', 'Not neutered'],
     'dog_hunt_yn' : ['Yes', 'No', 'Have not observed'],
-    'dog_hunt_freq' : ['Once every few months','Once a month','Once in 15 days','Once a week','Everyday']
+    'dog_hunt_yn_fix': ['Yes', 'No'],
+    'dog_hunt_freq' : ['Few times a month','Once every few months']
 }
 
 ## Save frequency tables as text file
@@ -203,6 +229,7 @@ with open(filename,'w') as f: # Open the file
 
     # For dog single option variables (dog1 to dog5)
     remove = ['row_ids', 'Unnamed: 0', # Dont need frequency table for index
+              'dog_hunt_yn', # Not corresponding to individual dog
               'dog_hunt' # Contains multiple options in one
               ]
     for col in dog.columns.drop(remove): 
@@ -237,7 +264,7 @@ def histo(df, var, order_dict):
     # var is the column name to make histogram for
     # order_dict is a dictionary containing correct order for all categorical values
     
-    col_scale = ['yellow','orange','red','green','blue']
+    col_scale = ['#999999']
     
     # Title for graph
     var_tit = var.replace('_',' ')
@@ -254,10 +281,17 @@ def histo(df, var, order_dict):
                        category_orders= { var : order_dict[var]}, # Define required order of categories
                        text_auto=True ## dimension
                        )
-    fig.update_yaxes(title = 'Count') # Y-axis title
-    fig.update_xaxes(title = var_tit) # X-axis title
-    fig. update_layout(showlegend=False) # Remove legend
+    #fig.update_yaxes(title = 'Count',nticks=10,gridcolor='Pink', showline=True, zeroline=True, zerolinewidth=1.5) 
+    fig.update_yaxes(title = 'Count', # Y-axis title
+                    showline=True, linewidth=1, linecolor='Black', 
+                    gridcolor='Grey', gridwidth=0.75,
+                    zeroline=True, zerolinewidth=1, zerolinecolor='Black')
     
+    fig.update_xaxes(title = var_tit) # X-axis title
+    fig.update_layout(showlegend=False, # Remove legend
+                      plot_bgcolor='White',
+                      yaxis_range=[0,
+                                   max(df1[var].value_counts()*1.1)])
     # Save figure as png
     pio.write_image(fig, f'{filepath}hist_{var}.png', engine="kaleido")
     
@@ -302,7 +336,7 @@ def histo_multi(df, var):
     # var is the column name to make histogram for
     # order_dict is a dictionary containing correct order for all categorical values
     
-    col_scale = ['yellow','orange','red','green','blue']
+    col_scale = ['#999999']
     
     # Title for graph
     var_tit = var.replace('_',' ')
@@ -323,9 +357,15 @@ def histo_multi(df, var):
                        color_discrete_sequence= col_scale, # Define color for bars
                        text_auto=True
                        )
-    fig.update_yaxes(title = 'Count') # Y-axis title
+    fig.update_yaxes(title = 'Count', # Y-axis title
+                    showline=True, linewidth=1, linecolor='Black', 
+                    gridcolor='Grey', gridwidth=0.5,
+                    zeroline=True, zerolinewidth=1, zerolinecolor='Black')
     fig.update_xaxes(title = var_tit) # X-axis title
-    fig. update_layout(showlegend=False) # Remove legend
+    fig.update_layout(showlegend=False, # Remove legend
+                      plot_bgcolor='White',
+                      yaxis_range=[0,
+                                   max(var_fix3.value_counts()*1.1)])
     
     # Save figure as png
     pio.write_image(fig, f'{filepath}hist_{var}.png', engine="kaleido")
