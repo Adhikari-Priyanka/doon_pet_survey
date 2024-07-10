@@ -87,7 +87,7 @@ def run_chi2(df, s1, s2, alpha=0.05):
         pval_result = 'accept h0, there is no relationship'
     
     # Return results and variables as string 
-    return f'{chi_sq_result} Chi square value = {chi_sq} and Critical value = {crit} {pval_result} as P value = {pval}\n'
+    return f'{chi_sq_result} Chi square value = {chi_sq} and Critical value = {crit} at alpha={alpha} and df={dof} {pval_result} as P value = {pval}\n'
 
 
 ## Run the chi square test for all combinations of dependent and independent variables
@@ -197,7 +197,7 @@ def run_chi2_multi(df, s1, multi, alpha=0.05):
         pval_result = 'accept h0, there is no relationship'
     
     # Return results and variables as string 
-    return f'{chi_sq_result} Chi square value = {chi_sq} and Critical value = {crit} {pval_result} as P value = {pval}\n'
+    return f'{chi_sq_result} Chi square value = {chi_sq} and Critical value = {crit} at alpha={alpha} and df={dof} {pval_result} as P value = {pval}\n'
 
 
 ## Chi2 test of cat_hunt (multiple option dependent variable) vs all cat independent variables
@@ -313,10 +313,10 @@ def histo_stack(df, x_var, col_var):
     
     fig.update_yaxes(title = 'Count', # Y-axis title
                     showline=True, linewidth=1, linecolor='Black', 
-                    gridcolor='Grey', gridwidth=0.75,
-                    zeroline=True, zerolinewidth=1, zerolinecolor='Black')
+                    gridcolor='Grey', gridwidth=0.75)
     
-    fig.update_xaxes(title = x_var) # X-axis title
+    fig.update_xaxes(title = x_var, 
+                     showline=True, linewidth=1, linecolor='Black') # X-axis title
     
     fig.update_layout(showlegend=True, # legend
                       plot_bgcolor='White',
@@ -349,7 +349,7 @@ def histo_stack(df, x_var, col_var):
                    title = f'Plot {x_var} and {col_var}', # Graph title
                    #color_discrete_sequence= col_scale,
                    #pattern_shape=col_var,
-                   category_orders= { x_var : cat_order_dict[x_var]}, # Define required order of categories
+                   #category_orders= { x_var : cat_order_dict[x_var]}, # Define required order of categories
                     text_auto=True ## dimension                   
                    )
     fig.update_yaxes(title = 'Count', # Y-axis title
