@@ -177,15 +177,16 @@ dog = pd.read_csv(f'{wd}dog_combine.csv')
 cat_order_dict = {
     'cat_age':['Kitten (0-6 months)','Junior (7 months - 2 years)', 'Adult (3-6 years)','Mature (>7 years)'],
     'cat_sex' : ['Female', 'Male'] ,
-    'cat_neutered' : ['Neutered', 'Not neutered'],
+    'cat_neutered' : ['Not neutered', 'Neutered'],
     'cat_describe' : ["Indoor-outdoor cat (the cat wanders outside on its own, but you feed it and look after it when it is sick)",'Completely indoor cat (always stays at home and does not go out on its own'],
-    'cat_feed_freq' : ['Once a day', 'Twice a day', 'Thrice a day', 'Continuous supply of food is available' ],
+    'cat_feed_freq' : ['Once a day', 'Twice a day', 'Thrice a day', 'Continuous supply of food' ],
     'cat_time_out': ['Completely indoors', '1-3 hours', '3-5 hours', '5-7 hours', '>7 hours'],
-    'cat_stay' : ['At home', 'Outside', 'Either at home or outside'],
+    'cat_stay' : ['At home', 'Either at home or outside', 'Outside'],
     'cat_hunt_yn': ['Yes', 'No'],
     'cat_hunt_yn_fix': ['Yes', 'No'],
+    'cat_hunt_fix' : ['Birds','Rodents','Reptiles','Insects','Squirrels','Amphibians'],
     'cat_hunt_freq': ['Once a week', 'Once in 15 days', 'Once a month','Once every few months'], 
-    'cat_time': ['<20 minutes', '20 minutes-1hour','1-2 hours','2-4 hours','>4 hours']
+    'cat_time': ['<1 hour','1-2 hours','2-4 hours','>4 hours']
     }
 dog_order_dict = {
     'dog_age' : ['0-3 months', '3 months - 1 year','1-3 years','3-5 years','5-8 years','8 - 12 years','12 years and older'],
