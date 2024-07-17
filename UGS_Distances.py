@@ -84,3 +84,37 @@ fig.add_annotation(text = f'Mean={m1}km<br>Median={m2}km<br>Max={m3}km<br>Min={m
 
 # Save figure as png
 pio.write_image(fig, f'{wd}bird_dist_boxplot.png', engine="kaleido")
+
+############################################################
+
+# 3. Quick graphs
+
+## Cat hunt
+fig = px.box(result, x=result['cat_hunt'],y='distance')
+
+# Save figure as png
+pio.write_image(fig, f'{wd}hunt_dist_boxplot.png', engine="kaleido")
+
+## Cat hunt freq
+
+res2 = pd.DataFrame(columns= ['distance', 'site', 'point']) 
+
+for i in range(0, len(hunt_freq)):
+    a = Point(hunt_freq['geometry'].iloc[i])
+    b= ugs.distance(a)
+    c = pd.DataFrame({'distance' : b/10**3, 'site':ugs['Site'], 'point': ugs['Point']})
+    d = c.iloc[c['distance'].idxmin()]
+    e = pd.Series([hunt_freq['row_ids'].iloc[i], hunt_freq['cat_hunt_freq'].iloc[i]])
+    f = pd.concat([d,e])
+    g = pd.DataFrame(f).transpose()
+    res2= pd.concat([res2,g], axis=0)
+
+res2 = res2.rename(columns={0 : 'row_ids', 1: 'cat_hunt_freq'})
+print(len(res2))
+
+res2.to_csv(f'{wd}cat_hunt_freq_add_dist.csv')
+
+fig = px.box(res2, x='cat_hunt_freq', y='distance')
+
+# Save figure as png
+pio.write_image(fig, f'{wd}hunt_freq_dist_boxplot.png', engine="kaleido")
