@@ -17,10 +17,10 @@ hunt_freq = gpd.read_file(f'{wd}add_cat_hunt_freq.gpkg')
 hunt = gpd.read_file(f'{wd}add_cat_hunt.gpkg')
 
 # Load UGS
-ugs = gpd.read_file(f'{wd}ugs.gpkg')
+ugs = gpd.read_file(f'{wd}ugs_polygon.gpkg')
 
 # Create empty dataframe to store results
-result = pd.DataFrame(columns= ['distance', 'site', 'point']) 
+result = pd.DataFrame(columns= ['distance', 'site']) 
 
 # 1. Calculate the distance to the closest UGC for each point
 for i in range(0, len(hunt)):
@@ -29,7 +29,7 @@ for i in range(0, len(hunt)):
     # Calculate distances to all UGS points
     b= ugs.distance(a)
     # Create a dataframe of the distance, site and point name
-    c = pd.DataFrame({'distance' : b/10**3, 'site':ugs['Site'], 'point': ugs['Point']})
+    c = pd.DataFrame({'distance' : b/10**3, 'site':ugs['site']})
     # Find the shortest distance
     d = c.iloc[c['distance'].idxmin()]
     # Extract information about the row i   
@@ -97,12 +97,12 @@ pio.write_image(fig, f'{wd}hunt_dist_boxplot.png', engine="kaleido")
 
 ## Cat hunt freq
 
-res2 = pd.DataFrame(columns= ['distance', 'site', 'point']) 
+res2 = pd.DataFrame(columns= ['distance', 'site']) 
 
 for i in range(0, len(hunt_freq)):
     a = Point(hunt_freq['geometry'].iloc[i])
     b= ugs.distance(a)
-    c = pd.DataFrame({'distance' : b/10**3, 'site':ugs['Site'], 'point': ugs['Point']})
+    c = pd.DataFrame({'distance' : b/10**3, 'site':ugs['site']})
     d = c.iloc[c['distance'].idxmin()]
     e = pd.Series([hunt_freq['row_ids'].iloc[i], hunt_freq['cat_hunt_freq'].iloc[i]])
     f = pd.concat([d,e])
