@@ -12,6 +12,11 @@ wd = 'F:\\github\\doon_pet_survey_graphs\\'
 cat = pd.read_csv(f'{wd}cat_combine.csv')
 dog = pd.read_csv(f'{wd}dog_combine.csv')
 
+## Create folder to store bar graphs
+filepath = f'{wd}\\bar_graphs\\'
+if not os.path.exists(filepath):
+    os.makedirs(filepath)
+
 col_scale = ['#169999','#555486', '#993989', '#113989']
 
 cat_order_dict = {
@@ -49,7 +54,7 @@ dog_indep_var = ['dog_neutered', 'dog_sex', 'dog_age']
 
 ## Save contingency tables as text file
 
-filename = f'{wd}contingency tables.txt'
+filename = f'{filepath}contingency tables.txt'
 if not os.path.isfile(filename):
     # If the file does not exist, create it
     with open(filename, 'w') as file:
@@ -116,7 +121,7 @@ def nice_graph(df, x_var, col_var,
                   showarrow=False)
     
      # Save figure as png
-    pio.write_image(fig, f'{wd}stack_{x_var}and{col_var}.png', engine="kaleido")
+    pio.write_image(fig, f'{filepath}stack_{x_var}and{col_var}.png', engine="kaleido")
     
     # Display success message
     print(f'Prepared stacked bar graph for {x_var} and {col_var}')

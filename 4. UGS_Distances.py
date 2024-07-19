@@ -6,6 +6,7 @@ import statistics as st
 import plotly.express as px
 import kaleido
 import plotly.io as pio
+import os
 
 ## Change file path as needed!!!!
 wd = 'F:\\github\\doon_pet_survey_graphs\\'
@@ -21,6 +22,13 @@ ugs = gpd.read_file(f'{wd}ugs_polygon.gpkg')
 
 # Create empty dataframe to store results
 result = pd.DataFrame(columns= ['distance', 'site']) 
+
+# Create folder to store boxplots
+filepath = f'{wd}\\distance_boxplots\\'
+if not os.path.exists(filepath):
+    os.makedirs(filepath)
+
+##############################################################
 
 # 1. Calculate the distance to the closest UGC for each point
 for i in range(0, len(hunt)):
@@ -43,7 +51,7 @@ for i in range(0, len(hunt)):
 ## Rename columns appropraitely
 result = result.rename(columns={0 : 'row_ids', 1: 'cat_hunt'})
 ## Write the dataframe to csv
-result.to_csv(f'{wd}cat_hunt_add_dist.csv')
+result.to_csv(f'{filepath}cat_hunt_add_dist.csv')
 
 ############################################################
 
@@ -83,7 +91,7 @@ fig.add_annotation(text = f'Mean={m1}km<br>Median={m2}km<br>Max={m3}km<br>Min={m
                    showarrow=False)
 
 # Save figure as png
-pio.write_image(fig, f'{wd}bird_dist_boxplot.png', engine="kaleido")
+pio.write_image(fig, f'{filepath}bird_dist_boxplot.png', engine="kaleido")
 
 ############################################################
 
@@ -117,4 +125,4 @@ res2.to_csv(f'{wd}cat_hunt_freq_add_dist.csv')
 fig = px.box(res2, x='cat_hunt_freq', y='distance')
 
 # Save figure as png
-pio.write_image(fig, f'{wd}hunt_freq_dist_boxplot.png', engine="kaleido")
+pio.write_image(fig, f'{filepath}hunt_freq_dist_boxplot.png', engine="kaleido")
